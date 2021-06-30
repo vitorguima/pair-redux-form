@@ -1,31 +1,14 @@
-import React, { Component } from 'react'
-import FormSignUp from './FormSignUp';
-import RenderFields from './RenderFields';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import FormSignUp from "./FormSignUp";
+import RenderFields from "./RenderFields";
 
-
-export default class Form extends Component {
-  updateState(name, value) {
-
-    this.setState(() => ({
-      [name]: value,
-    }))
-  }
-
-  handlerChanger({ target }) {
-    let { name, value } = target;
-
-    if (name === 'name') {
-      value = value.toUpperCase()
-    }
-    
-    this.updateState(name, value);
-  }
-
+class Form extends Component {
   handlerBlur({ target }) {
     let { name, value } = target;
 
-    if (name === 'city' && value.match(/^\d/)) {
-      value = '';
+    if (name === "city" && value.match(/^\d/)) {
+      value = "";
     }
 
     this.updateState(name, value);
@@ -35,28 +18,26 @@ export default class Form extends Component {
     let { name } = target;
     let enter = this.state.enter;
 
-    if (name === 'job' && enter === 'false') {
-      window.alert('Preencha com cuidado esta informação.');
+    if (name === "job" && enter === "false") {
+      window.alert("Preencha com cuidado esta informação.");
     }
 
-    this.updateState('enter', 'true')
-  }
-
-  handlerSubmit() {
-    this.updateState('submition', 'true');
-  }
-
-  handlerClear() {
-    this.setState(INITIAL_STATE);
+    this.updateState("enter", "true");
   }
 
   render() {
-    console.log(this.state);
+    const { submition } = this.props;
     return (
       <div>
-      <FormSignUp />
-      {this.state.submition === 'true' ? <RenderFields values={ this.state } /> : ''}
+        <FormSignUp />
+        {submition ? <RenderFields /> : ""}
       </div>
-    )
+    );
   }
 }
+
+const mapStateToProps = (state) => ({
+  submition: state.formReducer.submition,
+});
+
+export default connect(mapStateToProps, null)(Form);

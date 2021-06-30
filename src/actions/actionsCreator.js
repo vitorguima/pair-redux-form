@@ -1,15 +1,23 @@
-export const SUBMIT_FORM = 'SUBMIT_FORM';
-export const CLEAR_FORM = 'CLEAR_FORM';
+export const SUBMIT_FORM = "SUBMIT_FORM";
+export const CLEAR_FORM = "CLEAR_FORM";
+export const CHANGE_DATA = "CHANGE_DATA";
 
-export function submitForm(data) {
-  return ({
+export function changeData(name, value) {
+  return {
+    type: CHANGE_DATA,
+    name,
+    value,
+  };
+}
+
+export function submitForm() {
+  return {
     type: SUBMIT_FORM,
-    personalData: data,
-  })
+  };
 }
 
 export function clearForm() {
-  return({
+  return {
     type: CLEAR_FORM,
-  })
+  };
 }

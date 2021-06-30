@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
-export default class RenderFields extends Component {
+class RenderFields extends Component {
   render() {
     const { values } = this.props;
     const {
@@ -32,6 +33,12 @@ export default class RenderFields extends Component {
         <div> Cargo: {job}</div>
         <div> Descrição do cargo: {description}</div>
       </div>
-    )
+    );
   }
 }
+
+const mapStateToProps = (state) => ({
+  values: state.formReducer.data,
+});
+
+export default connect(mapStateToProps, null)(RenderFields);
